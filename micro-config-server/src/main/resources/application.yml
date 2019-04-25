@@ -1,0 +1,95 @@
+server:
+  port: 11110
+
+spring:
+  application:
+     name: CONFIG-SRV  # Service registers under this name
+# spring cloud configuration
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/hongjiaoliu/micro-config-repostories.git
+          username: bianyiji
+          password: yFbYj@20161221
+
+  profiles:
+    active: local
+
+
+#logging:
+#  level:
+#    com.netflix.discovery: 'OFF'
+#    org.springframework.cloud: 'DEBUG'
+
+---
+#本地开发环境    
+spring:
+  profiles: local  
+  
+#eureka configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:11120/eureka/ # 可配置多个地址
+  instance:
+    prefer-ip-address: true   #服务之间调用时，指定IP调用
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
+
+
+---
+#集成开发环境    
+spring:
+  profiles: dev  
+  
+#eureka configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.168.76.24:11120/eureka,http://10.117.65.154:11120/eureka # 可配置多个地址
+  instance:
+    prefer-ip-address: true   #服务之间调用时，指定IP调用
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+---
+#测试环境    
+spring:
+  profiles: test  
+  
+#eureka configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.117.106.104:11120/eureka/,http://10.51.5.162:11121/eureka/ # 可配置多个地址    
+  instance:
+    prefer-ip-address: true   #服务之间调用时，指定IP调用
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}      
+---      
+#预上线环境    
+spring:
+  profiles: pre  
+  
+#eureka configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.168.7.144:11120/eureka/ # 可配置多个地址    
+  instance:
+    prefer-ip-address: true   #服务之间调用时，指定IP调用
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}      
+---      
+#生产环境    
+spring:
+  profiles: product  
+  
+#eureka configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://10.51.30.84:11120/eureka/ # 可配置多个地址
+  instance:
+    prefer-ip-address: true   #服务之间调用时，指定IP调用
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
+          

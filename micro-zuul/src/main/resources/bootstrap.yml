@@ -1,0 +1,78 @@
+# HTTP Server
+server:
+  port: 80   # HTTP (Tomcat) port
+  tomcat:
+    max-threads: 16 # 最大worker线程
+    min-spare-threads: 8 # 最小worker线程
+  undertow:
+    io-threads: 4 # IO线程数，默认为CPU核心数，最小为2
+    worker-threads: 32 # 阻塞任务线程池，值设置取决于系统的负载，默认为io-threads * 8
+    buffer-size: 512 # 每块buffer的空间大小
+
+# 默认的profile为local，其他环境通过指定启动参数使用不同的profile，比如：  
+#   测试环境：java -jar my-spring-boot.jar --spring.profiles.active=test
+#   生产环境：java -jar my-spring-boot.jar --spring.profiles.active=prod    
+# Spring properties
+spring:
+  application:
+    name: ZUUL-SRV  # Service registers under this name
+  profiles:  
+    active: local
+  servlet:
+    multipart:
+      max-file-size: 100Mb
+      max-request-size: 100Mb
+
+zuul:
+  sensitiveHeaders:
+  ignoreSecurityHeaders: false
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+    max-per-route-connections: 100   #扩大路由线程池的容量
+    max-total-connections: 1000   #最大1000
+#  routes:
+#    api-a1:
+#      path: /**
+#      serviceId: SCANCLIENT-API,TRAINING-API
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500  #核心线程数
+      maximumSize: 10000  #最大线程池大小
+      queueSizeRejectionThreshold: -1 #排队线程数量阈值，默认为5
+      maxQueueSize: -1  #  最大排队长度。默认-1
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:  #针对所有方法超时时间，这里也可以针对不同的命令设置超时时间
+            timeoutInMilliseconds: 60000
+          semaphore:  #最大并发数
+            maxConcurrentRequests: 200
+
+ribbon:
+  ReadTimeout: 150000   #响应的最大时间
+  ConnectTimeout: 60000  #链接的超时时间
+  MaxAutoRetries: 2  #同实体重试次数
+  MaxAutoRetriesNextServer: 1  #不同的实体最大的重试次数
+
+---
+#本地开发环境    
+#spring cloud 服务发现地址
+# 集成开发环境配置
+spring:
+  profiles: local
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:11120/eureka/ # 可配置多个地址
+#      defaultZone: http://120.26.231.118:11121/eureka/ # 可配置多个地址
+  instance:
+    prefer-ip-address: true   #服务之间调用时，指定IP调用
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
