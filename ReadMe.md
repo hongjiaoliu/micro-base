@@ -10,7 +10,7 @@
 2. 模拟业务系统服务 —— 用户中心服务 — micro-usercenter
  + micro-usercenter-entity: 本项目实体
  + micro-usercenter-service：本项目Service服务
- + micro-usercenter-service-api：本项目feignClient[声明时客户端]
+ + micro-usercenter-service-api：本项目feignClient[声明式客户端]
  + micro-usercenter-web-api：本项目Web服务[提供给前端团队API] 
    
  
