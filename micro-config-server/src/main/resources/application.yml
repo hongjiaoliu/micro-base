@@ -10,8 +10,8 @@ spring:
       server:
         git:
           uri: https://github.com/hongjiaoliu/micro-config-repostories.git
-          username: bianyiji
-          password: yFbYj@20161221
+          username: hongjiaoliu
+          password: liuhj5250
 
   profiles:
     active: local

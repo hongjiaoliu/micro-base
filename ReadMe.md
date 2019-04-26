@@ -1,9 +1,26 @@
 
 项目目录结构
 
-micro-base
+1. 基础项目 micro-base
  + micro-base-entity  公共实体、工具类
  + micro-eureka-server 服务注册发现中心
  + micro-config-server 集中配置中心
  + micro-zuul 网关 
  
+2. 模拟业务系统服务 —— 用户中心服务 — micro-usercenter
+ + micro-usercenter-entity: 本项目实体
+ + micro-usercenter-service：本项目Service服务
+ + micro-usercenter-service-api：本项目feignClient[声明时客户端]
+ + micro-usercenter-web-api：本项目Web服务[提供给前端团队API] 
+   
+ 
+## 启动顺序
+### 启动 eureka-server 
+### 启动 config-server
+### 启动 zuul
+### 启动 usercenter-srv 
+### 启动 usercenter-api 
+ 
+访问eureka界面，http://127.0.0.1:11120/，显示如下，证明服务均正常启动
+ 
+ ![](images/eureka.png)
