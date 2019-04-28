@@ -15,11 +15,11 @@
    
  
 ## 启动顺序
-### 启动 eureka-server 
-### 启动 config-server
-### 启动 zuul
-### 启动 usercenter-srv 
-### 启动 usercenter-api 
+### 1. 启动 eureka-server 
+### 2. 启动 config-server
+### 3. 启动 zuul
+### 4. 启动 usercenter-srv 
+### 5. 启动 usercenter-api 
  
 访问eureka界面，http://127.0.0.1:11120/，显示如下，证明服务均正常启动
  
