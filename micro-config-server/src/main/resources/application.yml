@@ -17,11 +17,6 @@ spring:
     active: local
 
 
-#logging:
-#  level:
-#    com.netflix.discovery: 'OFF'
-#    org.springframework.cloud: 'DEBUG'
-
 ---
 #本地开发环境    
 spring:
