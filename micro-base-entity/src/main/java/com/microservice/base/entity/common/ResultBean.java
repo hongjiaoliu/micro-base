@@ -13,6 +13,8 @@ public class ResultBean implements Serializable {
     private String errcode;
     //错误描述
     private String errmsg;
+    //返回列表总数
+    private Integer totalCounts;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -48,5 +50,13 @@ public class ResultBean implements Serializable {
 
     public void setErrmsg(String errmsg) {
         this.errmsg = errmsg;
+    }
+
+    public Integer getTotalCounts() {
+        return totalCounts;
+    }
+
+    public void setTotalCounts(Integer totalCounts) {
+        this.totalCounts = totalCounts;
     }
 }
